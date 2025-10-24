@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Reflections – Learn Curve</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Your Reflections</h1>
+
+    <input type="text" id="usernameInput" placeholder="Enter your username" />
+    <button class="btn" onclick="loadReflections()">View Reflections</button>
+
+    <div id="reflections-container" class="card"></div>
+    <p><a href="dashboard.html" class="btn">Back to Dashboard</a></p>
+  </div>
+
+  <script>
+    function loadReflections() {
+      const username = document.getElementById("usernameInput").value.trim();
+      if (!username) {
+        alert("Please enter your username.");
+        return;
+      }
+
+      fetch(`/getReflections?username=${encodeURIComponent(username)}`)
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('reflections-container');
+          container.innerHTML = "";
+          if (data.length === 0) {
+            container.innerHTML = "<p>No reflections submitted yet.</p>";
+          } else {
+            data.forEach(ref => {
+              container.innerHTML += `
+                <div class="reflection-entry">
+                  <p>${ref.text}</p>
+                  <small><em>${ref.timestamp}</em></small>
+                </div>
+                <hr/>
+              `;
+            });
+          }
+        })
+        .catch(err => {
+          document.getElementById('reflections-container').innerHTML = "<p>Error loading reflections.</p>";
+          console.error("Fetch error:", err);
+        });
+    }
+  </script>
+</body>
+</html>

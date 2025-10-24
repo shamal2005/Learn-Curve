@@ -1,0 +1,23 @@
+<!-- File: public/submit_score.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Score – Learn Curve</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Submit Your Score</h2>
+    <form action="/submitScore" method="POST">
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="text" name="subject" placeholder="Subject" required />
+      <input type="number" name="score" placeholder="Score" required />
+      <input type="date" name="date" required />
+      <button type="submit">Submit</button>
+    </form>
+    <p><a href="dashboard.html">Back to Dashboard</a></p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!-- File: public/charts.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Progress Charts – Learn Curve</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Your Progress Charts</h2>
+    <p>Enter your username to view your chart and feedback:</p>
+
+    <input type="text" id="usernameInput" placeholder="Enter your username" required />
+    <button onclick="loadChart()">View Progress</button>
+
+    <div id="chartContainer" style="margin-top: 20px;">
+      <img id="scoreChart" src="" alt="Your Score Chart" style="display:none;" />
+      <div id="feedback" class="feedback-box"></div>
+    </div>
+
+    <p><a href="dashboard.html">Back to Dashboard</a></p>
+  </div>
+
+  <script>
+    function loadChart() {
+      const username = document.getElementById("usernameInput").value.trim();
+      if (!username) return alert("Please enter your username");
+
+      // Load chart image
+      const chartImg = document.getElementById("scoreChart");
+      chartImg.src = `/chart.png?username=${encodeURIComponent(username)}`;
+      chartImg.style.display = "block";
+
+      // Load feedback
+      fetch(`/chartFeedback?username=${encodeURIComponent(username)}`)
+        .then(res => res.json())
+        .then(data => {
+          const feedbackDiv = document.getElementById("feedback");
+          feedbackDiv.innerHTML = "<h3>Feedback:</h3>" + data.map(msg => `<p>${msg}</p>`).join("");
+        });
+    }
+  </script>
+</body>
+</html>

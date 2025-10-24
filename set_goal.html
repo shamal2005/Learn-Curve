@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Set Goal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Set Your Goal</h2>
+    <form action="http://localhost:4567/setGoal" method="POST">
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="text" name="subject" placeholder="Subject (e.g., COA)" required />
+      <input type="number" name="target" placeholder="Target Score (e.g., 85)" required />
+      <button type="submit">Submit Goal</button>
+    </form>
+  </div>
+</body>
+</html>

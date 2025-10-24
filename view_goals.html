@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>View Goals – Learn Curve</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Your Goals</h1>
+
+    <input type="text" id="usernameInput" placeholder="Enter your username" />
+    <button class="btn" onclick="loadGoals()">View Goals</button>
+
+    <div id="goals-container" class="card"></div>
+    <p><a href="dashboard.html" class="btn">Back to Dashboard</a></p>
+  </div>
+
+  <script>
+    function loadGoals() {
+      const username = document.getElementById("usernameInput").value.trim();
+      if (!username) {
+        alert("Please enter your username.");
+        return;
+      }
+
+      fetch(`/getGoals?username=${encodeURIComponent(username)}`)
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById("goals-container");
+          container.innerHTML = "";
+          if (data.length === 0) {
+            container.innerHTML = "<p>No goals set yet.</p>";
+          } else {
+            data.forEach(goal => {
+              container.innerHTML += `
+                <div class="goal-entry">
+                  <p><strong>Subject:</strong> ${goal.subject}</p>
+                  <p><strong>Target:</strong> ${goal.target}</p>
+                </div>
+                <hr/>
+              `;
+            });
+          }
+        })
+        .catch(err => {
+          document.getElementById('goals-container').innerHTML = "<p>Error loading goals.</p>";
+          console.error("Fetch error:", err);
+        });
+    }
+  </script>
+</body>
+</html>

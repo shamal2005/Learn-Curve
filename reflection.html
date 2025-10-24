@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Submit Reflection</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Daily Reflection</h2>
+    <form action="http://localhost:4567/submitReflection" method="POST">
+      <input type="text" name="username" placeholder="Username" required />
+      <textarea name="reflection" placeholder="How was your day?" required></textarea>
+      <button type="submit">Submit Reflection</button>
+    </form>
+  </div>
+</body>
+</html>
